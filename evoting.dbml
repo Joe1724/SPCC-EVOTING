@@ -1,0 +1,71 @@
+Table users {
+  id int [primary key]
+  name varchar(255)
+  email varchar(255) [unique]
+  password varchar(255)
+  role varchar(50)
+  student_id varchar(50) [unique, null]
+  course varchar(100) [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table elections {
+  id int [primary key]
+  name varchar(255)
+  status varchar(50)
+  start timestamp
+  end timestamp
+  created_by int
+}
+
+Table positions {
+  id int [primary key]
+  name varchar(255)
+}
+
+Table partylists {
+  id int [primary key]
+  name varchar(255)
+}
+
+Table nominees {
+  id int [primary key]
+  name varchar(255)
+  student_id varchar(50) [unique]
+  course varchar(100)
+  position_id int
+  partylist_id int
+  election_id int
+  image varchar(255)
+  description text
+}
+
+Table results {
+  id int [primary key]
+  user_id int
+  nominee_id int
+  position_id int
+  election_id int
+}
+
+Table votes {
+  id int [primary key]
+  nominee_id int
+  election_id int
+  count int [default: 0]
+  created_at timestamp
+}
+
+
+
+Ref: elections.created_by > users.id
+Ref: nominees.position_id > positions.id
+Ref: nominees.partylist_id > partylists.id
+Ref: nominees.election_id > elections.id
+Ref: results.user_id > users.id
+Ref: results.nominee_id > nominees.id
+Ref: results.position_id > positions.id
+Ref: results.election_id > elections.id
+Ref: votes.nominee_id > nominees.id
+Ref: votes.election_id > elections.id
