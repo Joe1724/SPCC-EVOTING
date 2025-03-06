@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('votes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('nominee_id')->constrained();
-            $table->foreignId('election_id')->constrained();
-            $table->integer('count')->default(0);
+        Schema::create('voters', function (Blueprint $table) {
+            $table->id(); // Equivalent to bigIncrements('id')
+            $table->string('name');
+            $table->string('student_id')->unique();
+            $table->string('course');
+            $table->foreignId('election_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**
