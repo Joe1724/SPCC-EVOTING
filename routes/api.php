@@ -1,6 +1,5 @@
 <?php
 use App\Http\Controllers\VoteController;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
-Route::post('/vote', [VoteController::class, 'vote']);
-Route::get('/results/{election_id}', [VoteController::class, 'results']);
+Route::middleware('auth:sanctum')->post('/vote', VoteController::class);
