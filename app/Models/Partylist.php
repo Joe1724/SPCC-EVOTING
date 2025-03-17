@@ -13,22 +13,3 @@ class Partylist extends Model
     use HasFactory;
     protected $fillable = ['name', 'election_id'];
 }
-
-// Migration for Position Table
-class CreatePositionsTable extends Migration
-{
-    public function up()
-    {
-        Schema::create('positions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('election_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('positions');
-    }
-}

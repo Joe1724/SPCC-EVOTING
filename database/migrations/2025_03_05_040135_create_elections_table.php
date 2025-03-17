@@ -9,9 +9,9 @@ return new class extends Migration {
         Schema::create('elections', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('status', ['pending', 'ongoing', 'completed']);
-            $table->timestamp('start')->default(DB::raw('CURRENT_TIMESTAMP')); // ✅ Set default value
-            $table->timestamp('end')->nullable(); // ✅ Allow NULL values
+            $table->enum('status', ['Upcoming', 'Ongoing', 'Completed'])->default('Upcoming');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
         });
     }

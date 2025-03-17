@@ -10,10 +10,15 @@ class CreateNomineesTable extends Migration
     {
         Schema::create('nominees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('voter_id');
-            $table->unsignedBigInteger('position_id');
-            $table->unsignedBigInteger('election_id');
-            $table->unsignedBigInteger('nominee_id'); // Removed foreign constraint
+            $table->string('name');
+            $table->string('course');
+            $table->string('student_id');
+            $table->bigInteger('position_id'); // Changed from foreignId
+            $table->bigInteger('partylist_id'); // Changed from foreignId
+            $table->bigInteger('election_id'); // Changed from foreignId
+            $table->text('description')->nullable();
+            $table->text('motto')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

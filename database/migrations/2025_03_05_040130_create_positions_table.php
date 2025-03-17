@@ -9,6 +9,7 @@ return new class extends Migration {
         Schema::create('positions', function (Blueprint $table) {
             $table->id(); // This creates an UNSIGNED BIGINT
             $table->string('name');
+            $table->bigInteger('election_id')->unsigned(); // Add this column
             $table->timestamps();
         });
 

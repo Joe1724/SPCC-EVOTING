@@ -2,39 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Result;
-use App\Models\Vote;
 use Illuminate\Http\Request;
+use App\Models\Vote;
+use App\Models\Nominee;
+use App\Models\Election;
 
-class VoteController extends Controller {
-    public function vote(Request $request) {
-        $request->validate([
-            'user_id' => 'required',
-            'nominee_id' => 'required',
-            'election_id' => 'required',
-            'position_id' => 'required'
-        ]);
+class VoteController extends Controller
+{
+    public function index()
+    {
+        $votes = Vote::with('nominee', 'election')->get();
+        return view('votes.index', compact('votes'));
+    }
 
-        $existingVote = Result::where('user_id', $request->user_id)
-            ->where('election_id', $request->election_id)
-            ->where('position_id', $request->position_id)
-            ->first();
+    public function create()
+    {
+        $nominees = Nominee::all();
+        $elections = Election::all();
+        return view('votes.create', compact('nominees', 'elections'));
+    }
 
-        if ($existingVote) {
-            return response()->json(['message' => 'User has already voted for this position'], 400);
+    public function store(Request $request)
+    {
+        $vote = Vote::where('nominee_id', $request->nominee_id)
+                    ->where('election_id', $request->election_id)
+                    ->first();
+
+        if ($vote) {
+            $vote->increment('count');
+        } else {
+            Vote::create([
+                'nominee_id' => $request->nominee_id,
+                'election_id' => $request->election_id,
+                'count' => 1,
+            ]);
         }
 
-        Result::create($request->all());
-        Vote::where('nominee_id', $request->nominee_id)->increment('count');
-
-        return response()->json(['message' => 'Vote cast successfully'], 200);
-    }
-
-    public function results($election_id) {
-        $results = Vote::where('election_id', $election_id)
-            ->orderByDesc('count')
-            ->get();
-        return response()->json($results);
+        return redirect()->route('votes.index')->with('success', 'Vote submitted successfully!');
     }
 }
-
