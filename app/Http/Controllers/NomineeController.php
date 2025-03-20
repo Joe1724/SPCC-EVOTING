@@ -4,54 +4,69 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nominee;
+use App\Models\Setting;
+use Illuminate\Routing\Controller;
 
 class NomineeController extends Controller
 {
-        public function index()
-    {
-        $nominees = Nominee::all();
-        return view('nominees.index', compact('nominees'));
-    }
-
-
-    public function store(Request $request)
+    public function index()
 {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'course' => 'required|string|max:255',
-        'student_id' => 'required|string|max:50',
-        'position_id' => 'required|exists:positions,id',
-        'partylist_id' => 'required|exists:partylists,id',
-        'election_id' => 'required|exists:elections,id',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'description' => 'nullable|string',
-        'motto' => 'nullable|string|max:255',
-    ]);
+    $setting = Setting::first(); // Fetch voting status
+    $nominees = Nominee::all()->groupBy('position'); // Group nominees by position
 
-    // Store the nominee
-    Nominee::create($request->all());
-
-    return redirect()->back()->with('success', 'Nominee added successfully!');
+    return view('nominees.index', compact('nominees', 'setting'));
 }
 
+    public function create()
+{
+    return view('nominees.create');
+}
 
-    public function show($id)
-    {
-        $nominee = Nominee::findOrFail($id);
-        return response()->json($nominee);
+public function store(Request $request)
+{
+    $request->validate([
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'course' => 'required',
+        'position' => 'required',
+        'partylist' => 'required',
+        'description' => 'required',
+        'image' => 'required|image|max:2048',
+    ]);
+
+    $imagePath = $request->file('image')->store('nominees', 'public');
+
+    Nominee::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'course' => $request->course,
+        'position' => $request->position,
+        'partylist' => $request->partylist,
+        'description' => $request->description,
+        'image' => $imagePath,
+    ]);
+
+    return redirect()->route('nominees.index')->with('success', 'Nominee added successfully!');
+}
+
+public function edit($id)
+{
+    $nominee = Nominee::findOrFail($id);
+    return view('nominees.edit', compact('nominee'));
+}
+
+public function update(Request $request, $id)
+{
+    $nominee = Nominee::findOrFail($id);
+
+    $nominee->update($request->all());
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('nominees', 'public');
+        $nominee->update(['image' => $imagePath]);
     }
 
-    public function update(Request $request, $id)
-    {
-        $nominee = Nominee::findOrFail($id);
-        $nominee->update($request->all());
-        return response()->json($nominee);
-    }
+    return redirect()->route('nominees.index')->with('success', 'Nominee updated successfully!');
+}
 
-    public function destroy($id)
-    {
-        $nominee = Nominee::findOrFail($id);
-        $nominee->delete();
-        return response()->json(['message' => 'Nominee deleted successfully']);
-    }
 }
