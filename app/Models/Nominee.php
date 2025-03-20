@@ -8,10 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Nominee extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'course', 'student_id', 'position_id', 'partylist_id', 'election_id', 'image', 'description', 'motto'];
-
-    public function position()
-    {
-        return $this->belongsTo(Position::class);
-    }
+    protected $fillable = ['first_name', 'last_name', 'course', 'position', 'partylist', 'image', 'description'];
 }
