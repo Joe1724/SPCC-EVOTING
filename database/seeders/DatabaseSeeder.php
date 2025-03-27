@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
 
 public function run()
 {
-    Setting::firstOrCreate(['id' => 1], ['status' => 0]); // Ensure a record exists
+    Setting::firstOrCreate(['id' => 1], ['status' => 0]);
 }
 
 }
