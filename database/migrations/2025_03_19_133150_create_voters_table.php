@@ -10,10 +10,10 @@ return new class extends Migration {
         Schema::create('voters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
             $table->string('student_id')->unique();
             $table->string('password');
-            $table->string('role')->default('voter'); // Optional: If you need roles
+            $table->string('role')->default('voter');
+            $table->boolean('is_voted')->default(false);
             $table->timestamps();
         });
     }

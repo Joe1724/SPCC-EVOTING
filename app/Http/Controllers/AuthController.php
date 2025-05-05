@@ -1,62 +1,112 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
-    public function loginForm()
-    {
-        return view('auth.login');
-    }
-
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('nominees.index'); // Redirect to /nominees
-        }
-
-        return back()->with('error', 'Invalid credentials.');
-    }
-
-    public function registerForm()
+    // Show voter registration form
+    public function showRegister()
     {
         return view('auth.register');
     }
 
+    // Handle voter registration (only for voters)
     public function register(Request $request)
     {
+        // Validation
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'student_id' => 'required|string|unique:users,student_id',
+            'password' => 'required|string|confirmed|min:6',
         ]);
 
-        User::create([
+        // Create the voter user
+        $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'student_id' => $request->student_id,
             'password' => bcrypt($request->password),
+            'role' => 'voter', // Registered users are always voters
         ]);
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
+        Auth::login($user);
+
+        return redirect('/dashboard');
     }
 
-    public function logout(Request $request)
+    // Show login form (for all roles)
+    public function showLogin()
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect()->route('welcome');
+        return view('auth.login');
     }
+
+    // Handle login
+    public function login(Request $request)
+    {
+        $credentials = $request->only('student_id', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Redirect based on role
+            if ($user->role === 'superadmin') {
+                return redirect('/superadmin/dashboard');
+            } elseif ($user->role === 'admin') {
+                return redirect('/admin/dashboard');
+            } else {
+                return redirect('/dashboard');
+            }
+        }
+
+        return back()->withErrors(['student_id' => 'Invalid credentials.']);
+    }
+
+    // Logout
+    public function logout(Request $request)
+{
+    Auth::logout();
+
+    $request->session()->invalidate();  // Invalidate the session
+    $request->session()->regenerateToken(); // Regenerate CSRF token
+
+    return redirect('/login');
+}
+
+
+public function showAdminLogin()
+{
+    return view('auth.admin_login');
+}
+
+// Handle Admin login
+public function adminLogin(Request $request)
+{
+    // Validate login credentials for admin using email
+    $credentials = $request->only('email', 'password');
+
+    // Attempt login
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+
+        // Check if user is an admin or superadmin
+        if ($user->role === 'admin' || $user->role === 'superadmin') {
+            return redirect('/admin/dashboard');
+        } else {
+            Auth::logout(); // Logout if user is not admin
+            return back()->withErrors(['email' => 'Access denied.']);
+        }
+    }
+
+    return back()->withErrors(['email' => 'Invalid credentials.']);
+}
+
+
 }

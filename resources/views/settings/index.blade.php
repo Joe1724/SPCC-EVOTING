@@ -16,7 +16,7 @@
             <label class="block mb-2 font-bold">Voting Status:</label>
             <select name="status" class="w-full p-2 border rounded">
                 <option value="1" {{ $setting->status == 1 ? 'selected' : '' }}>ON</option>
-                <option value="0" {{ $setting->status == 0 ? 'selected' : '' }}>OFF</option>
+                <option value="2" {{ $setting->status == 2 ? 'selected' : '' }}>OFF</option>
             </select>
             <button type="submit" class="px-4 py-2 mt-4 text-white bg-green-500 rounded">Update</button>
         </form>

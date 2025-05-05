@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vote extends Model
+class Result extends Model
 {
-    use HasFactory;
-    protected $fillable = ['nominee_id', 'count'];
+    protected $fillable = ['nominee_id', 'position', 'count'];
 
     public function nominee()
     {
         return $this->belongsTo(Nominee::class);
     }
 }
+

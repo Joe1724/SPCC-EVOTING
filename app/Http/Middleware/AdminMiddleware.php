@@ -1,17 +1,19 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsAdmin
+class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->role === 'admin') {
+        if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
         }
-        return redirect()->route('login')->with('error', 'Access Denied.');
+
+        abort(403, 'Unauthorized action.');
     }
 }

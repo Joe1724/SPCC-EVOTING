@@ -3,30 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPCC eVoting</title>
+    <title>Voting System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png');
+            background-repeat: repeat;
+            background-size: contain;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body class="flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <nav class="p-4 bg-white shadow-md">
-        <div class="container flex items-center justify-between mx-auto">
-            <h1 class="text-2xl font-bold text-blue-600">SPCC eVoting</h1>
-            <div>
-                <a href="{{ route('login') }}" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Login</a>
-                <a href="{{ route('register') }}" class="px-4 py-2 ml-2 text-blue-500 border border-blue-500 rounded hover:bg-blue-100">Register</a>
-            </div>
+    <nav class="flex items-center justify-between w-full p-4 bg-white shadow">
+        <!-- Logos -->
+        <div class="flex items-center space-x-4">
+            <img src="/images/logo1.png" alt="Logo 1" class="object-cover w-12 h-12">
+            <img src="/images/logo2.png" alt="Logo 2" class="object-cover w-12 h-12">
+        </div>
+
+        <!-- Links -->
+        <div class="space-x-4">
+            <a href="/login" class="px-4 py-2 text-white transition bg-blue-500 rounded-lg hover:bg-blue-600">
+                Login
+            </a>
+            <a href="/register" class="px-4 py-2 text-blue-500 transition bg-white border border-blue-500 rounded-lg hover:bg-blue-50">
+                Register
+            </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="flex items-center justify-center min-h-screen text-center">
-        <div>
-            <h2 class="mb-4 text-4xl font-bold text-gray-800">Your Voice, Your Vote!</h2>
-            <p class="mb-6 text-lg text-gray-600">Participate in the SPCC eVoting system and make your vote count.</p>
-            <a href="{{ route('login') }}" class="px-6 py-3 text-white bg-blue-600 rounded shadow hover:bg-blue-700">Get Started</a>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main class="flex flex-col items-center justify-center flex-grow px-4 text-center">
+        <h1 class="mb-4 text-5xl font-extrabold text-gray-900 drop-shadow-md">
+            Your Voice, <br> Your Vote!
+        </h1>
+        <p class="mb-8 text-gray-600">
+            Participate in the SPCC eVoting System and make your vote count!
+        </p>
+        <a href="/login" class="px-6 py-3 text-lg text-white transition bg-blue-500 rounded-lg hover:bg-blue-600">
+            Get Started
+        </a>
+    </main>
 
 </body>
 </html>
