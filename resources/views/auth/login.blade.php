@@ -11,7 +11,7 @@
   <div class="flex min-h-screen">
     <!-- Left: Image section -->
     <div class="items-center justify-center hidden w-1/2 bg-blue-600 lg:flex">
-      {{-- <img src="" alt="" class="object-cover w-full h-full" /> --}}
+     <img src="https://media-hosting.imagekit.io/05af90a6b4544822/image-removebg-preview%20(3).png?Expires=1841086841&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=gVYT42YB1jzZlTb1GHXXabUd4mVKuejme8pUCxy2DNuJaaMy4g07IcBgVH6Y4e9BXqrHNdCfdjiHp-SZIW-gE3AuRoswjpUQTBaxFQG1GFNQaTiRQ2q0TO21lrq-qw7Of1qsMb0kGRfufTN1ghrDQjcdCB3YZ0n4jBPz0APtwLsQd59hMLGuQoP3Dvfbnri5hO795f1EmpTbgQOuPNcvhaqIInNG1aEs9s4ZlBnXEp5080-XWDNGo8BUDZvglcFdXAnRBYMcLyGJWabcgF4eGBZicKS4VSZ9qAIKDZXtkIcIx1bayHvAZYJ3O-Nh~SkxpDv6fayUQAGZwUyFrRHRsg__" alt="" class="object-cover w-auto h-auto" />
     </div>
 
     <!-- Right: Login form -->

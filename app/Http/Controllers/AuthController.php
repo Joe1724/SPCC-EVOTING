@@ -33,6 +33,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'student_id' => $request->student_id,
+            'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'voter', // Registered users are always voters
         ]);

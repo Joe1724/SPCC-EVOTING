@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit User</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="min-h-screen p-8 bg-gray-100">
+@extends('admin.dashboard')
 
+@section('title', 'Edit User')
+
+@section('content')
     <h1 class="mb-8 text-3xl font-bold text-center">✏️ Edit User</h1>
 
     @if ($errors->any())
@@ -52,6 +48,4 @@
         </div>
 
     </form>
-
-</body>
-</html>
+@endsection
