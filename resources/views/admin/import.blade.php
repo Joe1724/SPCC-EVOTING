@@ -10,14 +10,7 @@
 
 <body class="bg-gray-100">
 
-    <!-- Navigation Bar -->
-    <nav class="p-4 bg-blue-600">
-        <ul class="flex space-x-4 text-white">
-            <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ route('admin.users.index') }}">Users</a></li>
-            <li><a href="{{ route('admin.users.import') }}" class="font-semibold">Import Users</a></li>
-        </ul>
-    </nav>
+
 
     <!-- Main Content Area -->
     <div class="container px-4 py-8 mx-auto max-w-7xl">

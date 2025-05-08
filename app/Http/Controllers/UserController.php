@@ -46,4 +46,13 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
     }
+
+    // Delete all users with the role 'voter'
+public function deleteVoters()
+{
+    User::where('role', 'voter')->delete();
+
+    return redirect()->route('admin.users.index')->with('success', 'All voters deleted successfully.');
+}
+
 }

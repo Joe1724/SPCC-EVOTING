@@ -29,7 +29,7 @@ Route::middleware(['auth', PreventBackHistory::class])->group(function () {
     Route::get('/vote', [VoteController::class, 'index'])->name('vote');
     Route::post('/vote', [VoteController::class, 'store'])->name('vote.store');
     Route::get('/nominees', [NomineeController::class, 'index'])->name('voter.nominees');
-    Route::get('/results', [ResultController::class, 'index'])->name('voter.results'); // <-- added voter results route
+    Route::get('/results', [ResultController::class, 'index'])->name('voter.results'); //
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
@@ -50,6 +50,7 @@ Route::middleware(['auth', 'admin', PreventBackHistory::class])->group(function 
 
     Route::get('/admin/results', [ResultController::class, 'index'])->name('admin.results');
     Route::get('/admin/information', [InformationController::class, 'index'])->name('admin.information');
+
 });
 
 
@@ -59,9 +60,11 @@ Route::prefix('voter')->middleware('auth')->group(function () {
 });
 
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', PreventBackHistory::class])->group(function () {
     Route::resource('users', UserController::class)->except(['create', 'store', 'show']);
+    Route::delete('/users/delete-voters', [UserController::class, 'deleteVoters'])->name('users.deleteVoters');
 });
+
 
 
 Route::get('/admin/information', [InformationController::class, 'index'])->middleware('admin');

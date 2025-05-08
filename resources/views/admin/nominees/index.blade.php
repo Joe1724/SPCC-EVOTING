@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin - Nominees</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        function openModal(description) {
-            document.getElementById('modal').classList.remove('hidden');
-            document.getElementById('modal-description').innerText = description;
-        }
+@extends('admin.dashboard')
 
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-        }
-    </script>
-</head>
-<body class="p-8 bg-gray-100">
+@section('title', 'Admin - Nominees')
 
+@section('content')
     <h1 class="mb-6 text-3xl font-bold">Nominees</h1>
 
     <a href="{{ route('admin.nominees.create') }}" class="inline-block px-4 py-2 mb-4 text-white bg-blue-600 rounded hover:bg-blue-700">Add Nominee</a>
@@ -29,7 +15,7 @@
 
     <div class="mt-6">
         <table class="w-full bg-white rounded shadow table-auto">
-            <thead class="bg-gray-200">
+            <thead class="w-full bg-gray-200">
                 <tr>
                     <th class="px-4 py-2">Name</th>
                     <th class="px-4 py-2">Position</th>
@@ -45,13 +31,13 @@
                             <td class="px-4 py-2">{{ $position }}</td>
                             <td class="px-4 py-2">{{ $nominee->partylist }}</td>
                             <td class="px-4 py-2 space-x-2">
-                                <!-- View Details Button -->
+                                <!-- View Button -->
                                 <button onclick="openModal(`{{ $nominee->description }}`)" class="px-2 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">
                                     View
                                 </button>
 
                                 <!-- Edit Button -->
-                                <a href="{{ route('admin.nominees.edit', $nominee->id) }}" class="px-2 py-1 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600">
+                                <a href="{{ route('admin.nominees.edit', $nominee->id) }}" class="px-2 py-1 text-sm text-white bg-blue-500 rounded hover:bg-yellow-600">
                                     Edit
                                 </a>
 
@@ -81,6 +67,17 @@
             </button>
         </div>
     </div>
+@endsection
 
-</body>
-</html>
+@push('scripts')
+    <script>
+        function openModal(description) {
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modal-description').innerText = description;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+    </script>
+@endpush

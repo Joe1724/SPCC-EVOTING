@@ -19,8 +19,8 @@
     <nav class="flex items-center justify-between w-full p-4 bg-white shadow">
         <!-- Logos -->
         <div class="flex items-center space-x-4">
-            <img src="/images/logo1.png" alt="Logo 1" class="object-cover w-12 h-12">
-            <img src="/images/logo2.png" alt="Logo 2" class="object-cover w-12 h-12">
+            <img src="https://evaluation.spcc.edu.ph/assets/img/logo.png" alt="Logo 1" class="object-cover w-12 h-12">
+            <img src="https://spcc.edu.ph/assets/img/departments/CIT.jpg" alt="Logo 2" class="object-cover w-12 h-12">
         </div>
 
         <!-- Links -->
