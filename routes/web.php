@@ -7,8 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NomineeController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\ResultController; // <-- Added result controller
-use App\Http\Controllers\InformationController; // <-- Added information controller
+use App\Http\Controllers\ResultController; 
+use App\Http\Controllers\InformationController; 
 use App\Http\Controllers\Voter\NomineeController as VoterNomineeController;
 use App\Http\Middleware\PreventBackHistory;
 
@@ -35,7 +35,7 @@ Route::middleware(['auth', PreventBackHistory::class])->group(function () {
 
 
 // Admin routes (accessible only by authenticated admins)
-// Admin routes (accessible only by authenticated admins)
+
 Route::middleware(['auth', 'admin', PreventBackHistory::class])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminController::class, 'manageUsers'])->name('admin.manage.users');
@@ -78,3 +78,7 @@ use App\Http\Controllers\UserImportController;
 
 Route::get('/admin/users/import', [UserImportController::class, 'showImportForm'])->name('admin.users.import');
 Route::post('/admin/users/import', [UserImportController::class, 'import'])->name('admin.users.import');
+
+use App\Http\Controllers\LiveCountController;
+
+Route::get('/livecount', [LiveCountController::class, 'show'])->name('livecount');
