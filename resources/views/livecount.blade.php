@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Live Vote Count</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -26,11 +26,20 @@
                     @endphp
 
                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="{{ asset('uploads/' . $nominee->image) }}" alt="{{ $nominee->first_name }} {{ $nominee->last_name }}"
-                             class="object-cover w-full h-48">
+                        @if ($nominee->image)
+                            <img src="{{ asset('storage/' . $nominee->image) }}" 
+                                 alt="{{ $nominee->first_name }} {{ $nominee->last_name }}" 
+                                 class="object-cover w-full h-48" />
+                        @else
+                            <div class="flex items-center justify-center w-full h-48 bg-gray-300">
+                                <span class="text-gray-600">No Image</span>
+                            </div>
+                        @endif
 
                         <div class="p-4">
-                            <h2 class="text-xl font-semibold text-gray-800">{{ $nominee->first_name }} {{ $nominee->last_name }}</h2>
+                            <h2 class="text-xl font-semibold text-gray-800">
+                                {{ $nominee->first_name }} {{ $nominee->last_name }}
+                            </h2>
                             <p class="text-sm text-gray-500">Position: {{ $nominee->position }}</p>
                             <p class="text-sm text-gray-500">Partylist: {{ $nominee->partylist }}</p>
 
