@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Election;
 use App\Models\Partylist;
 use App\Models\Position;
@@ -9,11 +11,15 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-
-
-public function run()
-{
-    Setting::firstOrCreate(['id' => 1], ['status' => 0]);
-}
-
+    public function run()
+    {
+        // Create default setting
+        Setting::firstOrCreate(['id' => 1], ['status' => 0]);
+        
+        // Call seeders
+        $this->call([
+            AdminSeeder::class,
+            NomineeSeeder::class,
+        ]);
+    }
 }

@@ -1,3 +1,184 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply antialiased;
+    }
+}
+
+@layer components {
+    /* Card Components */
+    .card {
+        @apply bg-white rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl;
+    }
+    
+    .card-hover {
+        @apply transform hover:-translate-y-1 hover:scale-[1.02];
+    }
+
+    /* Button Components */
+    .btn {
+        @apply px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-opacity-50;
+    }
+    
+    .btn-primary {
+        @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-300 shadow-md hover:shadow-lg;
+    }
+    
+    .btn-secondary {
+        @apply bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50 focus:ring-blue-300;
+    }
+    
+    .btn-success {
+        @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-300 shadow-md hover:shadow-lg;
+    }
+    
+    .btn-danger {
+        @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-300 shadow-md hover:shadow-lg;
+    }
+
+    /* Input Components */
+    .input {
+        @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg transition-all duration-200 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100;
+    }
+    
+    .input-error {
+        @apply border-red-500 focus:border-red-500 focus:ring-red-100;
+    }
+
+    /* Sidebar Navigation */
+    .nav-link {
+        @apply flex items-center gap-3 p-3 text-gray-700 rounded-lg transition-all duration-200 hover:bg-blue-600 hover:text-white hover:pl-5 font-medium;
+    }
+    
+    .nav-link-active {
+        @apply bg-blue-600 text-white pl-5;
+    }
+
+    /* Modal Components */
+    .modal-overlay {
+        @apply fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300;
+    }
+    
+    .modal-content {
+        @apply bg-white rounded-2xl shadow-2xl transform transition-all duration-300 scale-95 opacity-0;
+    }
+    
+    .modal-content.show {
+        @apply scale-100 opacity-100;
+    }
+
+    /* Badge Components */
+    .badge {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold;
+    }
+    
+    .badge-blue {
+        @apply bg-blue-100 text-blue-800;
+    }
+    
+    .badge-green {
+        @apply bg-green-100 text-green-800;
+    }
+    
+    .badge-red {
+        @apply bg-red-100 text-red-800;
+    }
+
+    /* Alert Components */
+    .alert {
+        @apply p-4 rounded-lg mb-4 border-l-4 animate-slideIn;
+    }
+    
+    .alert-success {
+        @apply bg-green-50 border-green-500 text-green-800;
+    }
+    
+    .alert-error {
+        @apply bg-red-50 border-red-500 text-red-800;
+    }
+    
+    .alert-info {
+        @apply bg-blue-50 border-blue-500 text-blue-800;
+    }
+}
+
+@layer utilities {
+    /* Custom Animations */
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes pulse-slow {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.8;
+        }
+    }
+
+    .animate-slideIn {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    .animate-fadeIn {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    .animate-slideUp {
+        animation: slideUp 0.4s ease-out;
+    }
+    
+    .animate-pulse-slow {
+        animation: pulse-slow 2s ease-in-out infinite;
+    }
+
+    /* Gradient Backgrounds */
+    .gradient-blue {
+        @apply bg-gradient-to-br from-blue-500 to-blue-700;
+    }
+    
+    .gradient-overlay {
+        @apply bg-gradient-to-t from-black/60 to-transparent;
+    }
+
+    /* Glass Morphism */
+    .glass {
+        @apply bg-white/90 backdrop-blur-md;
+    }
+
+    /* Smooth Scrolling */
+    .smooth-scroll {
+        scroll-behavior: smooth;
+    }
+}
